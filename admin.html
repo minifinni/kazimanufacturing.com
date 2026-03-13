@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAZI Analytics | Click Tracking</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-logo">KAZI</a>
+    <div class="nav-links">
+      <a href="/services/">Services</a>
+      <a href="/suppliers/">Suppliers</a>
+      <a href="/about.html">About</a>
+    </div>
+  </nav>
+
+  <header class="admin-header">
+    <div class="section-label">/ Admin</div>
+    <h1>Click Analytics</h1>
+  </header>
+
+  <main class="admin-content">
+    <div class="admin-note">
+      <p><strong>Last updated:</strong> <span id="lastUpdated">Now</span></p>
+      <p>This page shows click tracking data stored in your browser's localStorage. Data is only available on this device.</p>
+    </div>
+
+    <h2>Service Interest</h2>
+    <table class="admin-table" id="serviceTable">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Clicks</th>
+          <th>Last Click</th>
+        </tr>
+      </thead>
+      <tbody id="serviceTableBody">
+        <tr><td colspan="3" style="text-align:center;color:var(--muted)">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top:3rem">Page Interactions</h2>
+    <table class="admin-table" id="interactionTable">
+      <thead>
+        <tr>
+          <th>Interaction</th>
+          <th>Count</th>
+          <th>Last Click</th>
+        </tr>
+      </thead>
+      <tbody id="interactionTableBody">
+        <tr><td colspan="3" style="text-align:center;color:var(--muted)">Loading...</td></tr>
+      </tbody>
+    </table>
+
+    <button class="clear-btn" onclick="clearTrackingData()">Clear All Data</button>
+  </main>
+
+  <script>
+    // Load and display tracking data
+    function loadTrackingData() {
+      const data = JSON.parse(localStorage.getItem('kazi_clicks') || '{}');
+      const timestamps = JSON.parse(localStorage.getItem('kazi_clicks_ts') || '{}');
+      
+      const serviceTableBody = document.getElementById('serviceTableBody');
+      const interactionTableBody = document.getElementById('interactionTableBody');
+      
+      // Define service categories
+      const services = ['embroidery', 'dtg-printing', 'screen-printing', 'hoodies', 'knitwear', 'activewear', 'private-label', 'labels', 't-shirts', 'cargo-trousers', 'outerwear', 'denim', 'accessories', 'sublimation', 'heat-transfer', 'patches'];
+      
+      // Separate services from other interactions
+      const serviceData = [];
+      const interactionData = [];
+      
+      for (const [key, count] of Object.entries(data)) {
+        const entry = {
+          name: key,
+          count: count,
+          lastClick: timestamps[key] ? new Date(timestamps[key]).toLocaleString() : 'Unknown'
+        };
+        
+        if (services.includes(key)) {
+          serviceData.push(entry);
+        } else {
+          interactionData.push(entry);
+        }
+      }
+      
+      // Sort by count descending
+      serviceData.sort((a, b) => b.count - a.count);
+      interactionData.sort((a, b) => b.count - a.count);
+      
+      // Render service table
+      if (serviceData.length === 0) {
+        serviceTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted)">No service clicks yet</td></tr>';
+      } else {
+        serviceTableBody.innerHTML = serviceData.map(row => `
+          <tr>
+            <td>${formatName(row.name)}</td>
+            <td class="click-count">${row.count}</td>
+            <td style="color:var(--muted);font-size:0.85rem">${row.lastClick}</td>
+          </tr>
+        `).join('');
+      }
+      
+      // Render interaction table
+      if (interactionData.length === 0) {
+        interactionTableBody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted)">No interactions yet</td></tr>';
+      } else {
+        interactionTableBody.innerHTML = interactionData.map(row => `
+          <tr>
+            <td>${formatName(row.name)}</td>
+            <td class="click-count">${row.count}</td>
+            <td style="color:var(--muted);font-size:0.85rem">${row.lastClick}</td>
+          </tr>
+        `).join('');
+      }
+      
+      // Update timestamp
+      document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+    }
+    
+    function formatName(name) {
+      return name
+        .replace(/-/g, ' ')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase());
+    }
+    
+    function clearTrackingData() {
+      if (confirm('Are you sure you want to clear all tracking data?')) {
+        localStorage.removeItem('kazi_clicks');
+        localStorage.removeItem('kazi_clicks_ts');
+        loadTrackingData();
+      }
+    }
+    
+    // Load on page load
+    loadTrackingData();
+    
+    // Refresh every 30 seconds
+    setInterval(loadTrackingData, 30000);
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
