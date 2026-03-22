@@ -39,12 +39,13 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-bg" style="background-image: url('images/factory-2.jpg')"></div>
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title">Your Manufacturing Partner in Nepal</h1>
             <p class="hero-subtitle">T-shirts, hoodies, embroidery & custom apparel. 0% UK import duty. MOQ from 50 units.</p>
             <a href="#pricing" class="hero-cta">Get a Quote</a>
         </div>
-        <div class="hero-gradient"></div>
     </section>
 
     <!-- Trust Bar -->
@@ -52,7 +53,7 @@
         <div class="trust-container">
             <div class="trust-item">
                 <span class="trust-icon">🏭</span>
-                <span class="trust-text">Own Factory</span>
+                <span class="trust-text">Factory Based</span>
             </div>
             <div class="trust-item">
                 <span class="trust-icon">🇬🇧</span>
@@ -75,6 +76,9 @@
             <h2 class="section-title">Our Services</h2>
             <div class="services-grid">
                 <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/tshirts.jpg" alt="T-Shirt Manufacturing">
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M20.38 3.4a1.6 1.6 0 0 0-2.29.1l-2.18 2.18-7.29 7.3-1.06 3.18 3.18-1.06 7.29-7.3 2.18-2.18a1.6 1.6 0 0 0 .17-2.22z"/>
@@ -85,6 +89,9 @@
                     <p>High-quality cotton and blended tees, from classic fits to modern cuts. Perfect for brands, events, and corporate wear.</p>
                 </div>
                 <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/factory-1.jpg" alt="Hoodie Manufacturing">
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M17.5 19c0-1.7-1.3-3-3-3h-5c-1.7 0-3 1.3-3 3"/>
@@ -99,18 +106,23 @@
                     <p>Premium fleece and heavyweight hoodies, sweatshirts, and jackets. Built to last with quality stitching and materials.</p>
                 </div>
                 <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/embroidery.jpg" alt="Embroidery Services">
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                            <path d="M8 12h8"/>
-                            <path d="M12 16v2"/>
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                            <path d="M2 12h20"/>
                         </svg>
                     </div>
                     <h3>Embroidery & Print</h3>
                     <p>Professional screen printing, DTG, and detailed embroidery services. From simple logos to complex multi-color designs.</p>
                 </div>
                 <div class="service-card">
+                    <div class="service-image">
+                        <img src="images/factory-3.jpg" alt="Private Label Manufacturing">
+                    </div>
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -125,16 +137,16 @@
         </div>
     </section>
 
-    <!-- Pricing Calculator -->
+    <!-- Pricing Calculator Section -->
     <section id="pricing" class="pricing">
         <div class="container">
-            <h2 class="section-title">Pricing Calculator</h2>
-            <p class="section-subtitle">Get an instant estimate for your order. Prices include production only—shipping calculated separately.</p>
+            <h2 class="section-title">Get a Quote Instantly</h2>
+            <p class="section-subtitle">Move the slider to see pricing for your quantity. Prices include production in Nepal and exclude shipping.</p>
             
             <div class="calculator">
                 <div class="calculator-slider">
-                    <label for="quantity">Quantity</label>
-                    <input type="range" id="quantity" min="50" max="5000" value="50" step="10">
+                    <label for="quantity">Order Quantity</label>
+                    <input type="range" id="quantity" min="50" max="5000" value="50" step="50">
                     <div class="slider-labels">
                         <span>50</span>
                         <span>100</span>
@@ -145,18 +157,18 @@
                     </div>
                 </div>
                 
-                <div class="quantity-display">
-                    <span id="quantity-value">50</span> units
-                </div>
-                
-                <div class="price-display">
-                    <div class="price-per-unit">
-                        <span class="price-label">Price per unit</span>
-                        <span class="price-value">£<span id="price-per-unit">12.00</span></span>
+                <div class="calculator-result">
+                    <div class="result-item">
+                        <span class="result-label">Quantity</span>
+                        <span class="result-value" id="display-quantity">50</span>
                     </div>
-                    <div class="price-total">
-                        <span class="price-label">Total</span>
-                        <span class="price-value total">£<span id="price-total">600</span></span>
+                    <div class="result-item">
+                        <span class="result-label">Price per unit</span>
+                        <span class="result-value" id="display-price">£12.00</span>
+                    </div>
+                    <div class="result-item total">
+                        <span class="result-label">Total estimate</span>
+                        <span class="result-value" id="display-total">£600.00</span>
                     </div>
                 </div>
                 
@@ -165,7 +177,7 @@
         </div>
     </section>
 
-    <!-- How It Works -->
+    <!-- How It Works Section -->
     <section class="how-it-works">
         <div class="container">
             <h2 class="section-title">How It Works</h2>
@@ -173,49 +185,49 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Get a Quote</h3>
-                    <p>Share your design, quantity, and requirements. We'll respond within 24 hours with pricing and timeline.</p>
+                    <p>Tell us what you need—product type, quantity, and customization.</p>
                 </div>
                 <div class="step-arrow">→</div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3>Approve Sample</h3>
-                    <p>We create a pre-production sample for your approval. Make adjustments until it's perfect.</p>
+                    <p>We create a sample for your approval before full production.</p>
                 </div>
                 <div class="step-arrow">→</div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3>Production</h3>
-                    <p>Full production begins at our factory in Kathmandu. Quality checks at every stage.</p>
+                    <p>Your order is manufactured in our Nepal facility.</p>
                 </div>
                 <div class="step-arrow">→</div>
                 <div class="step">
                     <div class="step-number">4</div>
                     <h3>Delivery to UK</h3>
-                    <p>Shipped directly to your door. Typical delivery time: 3-4 weeks from order confirmation.</p>
+                    <p>Shipped to your door with 0% import duty.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Nepal -->
+    <!-- Why Nepal Section -->
     <section id="about" class="why-nepal">
         <div class="container">
             <h2 class="section-title">Why Nepal</h2>
             <div class="nepal-grid">
                 <div class="nepal-card">
-                    <div class="nepal-icon">0%</div>
+                    <div class="nepal-icon">🇬🇧</div>
                     <h3>0% UK Import Duty</h3>
-                    <p>Under the UK Developing Countries Trading Scheme (DCTS), goods from Nepal enter the UK duty-free. This saves you ~12% compared to other Asian manufacturing hubs.</p>
+                    <p>Under the DCTS scheme, goods from Nepal enter the UK duty-free. A significant cost advantage over China, Vietnam, and Bangladesh.</p>
                 </div>
                 <div class="nepal-card">
-                    <div class="nepal-icon">🧵</div>
+                    <div class="nepal-icon">👷</div>
                     <h3>Skilled Workforce</h3>
-                    <p>Nepal has a rich textile heritage and skilled craftspeople. Our workers bring decades of experience in garment manufacturing and embroidery.</p>
+                    <p>Decades of textile heritage with craftspeople experienced in cut, sew, and embellishment techniques.</p>
                 </div>
                 <div class="nepal-card">
                     <div class="nepal-icon">💚</div>
                     <h3>Ethical Production</h3>
-                    <p>We pay fair wages and maintain safe working conditions. Our factory is audited and certified. When you work with us, you support sustainable manufacturing.</p>
+                    <p>Fair wages, safe working conditions, and transparent supply chains. Manufacturing you can feel good about.</p>
                 </div>
             </div>
         </div>
@@ -228,11 +240,11 @@
             <div class="faq-list">
                 <div class="faq-item">
                     <button class="faq-question">
-                        What's the MOQ?
+                        What's the minimum order quantity?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Our minimum order quantity is 50 units per style/color. This applies to all product types—t-shirts, hoodies, and custom apparel. For mixed orders (different designs), each design requires a minimum of 50 pieces.</p>
+                        <p>Our MOQ is 50 units per style/color. This applies to all products including t-shirts, hoodies, and custom garments.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -241,7 +253,7 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Typical production time is 2-3 weeks after sample approval. Sample creation takes 5-7 days. Shipping to the UK adds another 7-10 days. For large orders (1000+ units), add an extra week.</p>
+                        <p>Sample production: 2-3 weeks. Bulk production: 4-6 weeks after sample approval. Total timeline is typically 6-8 weeks from order to delivery.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -250,7 +262,7 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Yes, we ship directly to the UK and throughout Europe. Thanks to the DCTS scheme, there are no import duties on goods from Nepal to the UK. You only pay VAT (20%) and shipping costs.</p>
+                        <p>Yes, we ship worldwide with a focus on UK and EU customers. Shipping costs are not included in our quotes and will be calculated separately based on volume and destination.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -259,7 +271,7 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>Absolutely. We always produce a pre-production sample for your approval before starting full production. Sample costs vary by complexity but are credited toward your final order.</p>
+                        <p>Absolutely. We always produce a pre-production sample for your approval before starting bulk manufacturing. Sample costs are quoted separately.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -268,48 +280,46 @@
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>For new customers, we require 50% deposit to begin production and 50% before shipping. For repeat customers with established history, we offer Net 30 terms. We accept bank transfer and Wise.</p>
+                        <p>We typically require 50% deposit to start production, with the balance due before shipping. For established clients, we can discuss net-30 terms.</p>
                     </div>
                 </div>
                 <div class="faq-item">
                     <button class="faq-question">
-                        Do you handle design and branding?
+                        What print and embroidery options do you offer?
                         <span class="faq-icon">+</span>
                     </button>
                     <div class="faq-answer">
-                        <p>We can assist with basic design adjustments and file preparation. For custom labels, hang tags, and packaging, we work with your designs or can recommend local designers. We don't offer full graphic design services.</p>
+                        <p>We offer screen printing, DTG (direct-to-garment), embroidery, and heat transfer. Options include front print, back print, sleeve prints, and custom label tags.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Form -->
+    <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Get a Quote</h2>
             <p class="section-subtitle">Tell us about your project and we'll get back to you within 24 hours.</p>
             
-            <form class="contact-form" action="https://formspree.io/f/xpwzgkqp" method="POST">
-                <div class="form-row">
+            <form class="contact-form" action="https://formspree.io/f/xkgwnpaj" method="POST">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">Name *</label>
                         <input type="text" id="name" name="name" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email *</label>
                         <input type="email" id="email" name="email" required>
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group">
                         <label for="company">Company</label>
                         <input type="text" id="company" name="company">
                     </div>
                     <div class="form-group">
-                        <label for="product-type">Product Type</label>
+                        <label for="product-type">Product Type *</label>
                         <select id="product-type" name="product-type" required>
-                            <option value="">Select...</option>
+                            <option value="">Select a product</option>
                             <option value="t-shirts">T-Shirts</option>
                             <option value="hoodies">Hoodies</option>
                             <option value="embroidery">Embroidery</option>
@@ -319,15 +329,79 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="form-quantity">Quantity</label>
-                    <input type="number" id="form-quantity" name="quantity" min="50" placeholder="e.g., 200">
+                
+                <div class="form-section">
+                    <h3 class="form-section-title">Print/Decoration Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="print-type">Print Type</label>
+                            <select id="print-type" name="print-type">
+                                <option value="">Select print type</option>
+                                <option value="none">None (plain garments)</option>
+                                <option value="screen-print-1">Screen Print (1 color)</option>
+                                <option value="screen-print-multi">Screen Print (multi-color)</option>
+                                <option value="dtg">DTG (Direct to Garment)</option>
+                                <option value="embroidery">Embroidery</option>
+                                <option value="heat-transfer">Heat Transfer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Print Locations</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="location-front" value="front">
+                                    <span>Front</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="location-back" value="back">
+                                    <span>Back</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="location-left-sleeve" value="left-sleeve">
+                                    <span>Left Sleeve</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="location-right-sleeve" value="right-sleeve">
+                                    <span>Right Sleeve</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="num-colors">Number of Colors</label>
+                            <select id="num-colors" name="num-colors">
+                                <option value="">Select</option>
+                                <option value="1">1 color</option>
+                                <option value="2">2 colors</option>
+                                <option value="3-4">3-4 colors</option>
+                                <option value="5+">5+ colors</option>
+                                <option value="full">Full color/Gradient</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, design requirements, timeline, etc." required></textarea>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="quantity">Quantity *</label>
+                        <input type="number" id="form-quantity" name="quantity" min="50" placeholder="e.g., 200" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="timeline">Timeline</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">Select timeline</option>
+                            <option value="rush">Rush (2-3 weeks)</option>
+                            <option value="standard">Standard (4-6 weeks)</option>
+                            <option value="flexible">Flexible (6+ weeks)</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="submit" class="form-submit">Send Message</button>
+                
+                <div class="form-group">
+                    <label for="message">Additional Details</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, design requirements, colors, sizes, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">Send Quote Request</button>
             </form>
         </div>
     </section>
@@ -338,15 +412,16 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <span class="footer-logo">KAZI</span>
-                    <p>Your manufacturing partner in Nepal.</p>
+                    <p>Your manufacturing partner in Nepal. Ethical apparel production for forward-thinking brands.</p>
                 </div>
                 <div class="footer-contact">
-                    <a href="mailto:hello@kazimanufacturing.com">hello@kazimanufacturing.com</a>
-                    <span>Kathmandu, Nepal</span>
+                    <h4>Contact</h4>
+                    <p>hello@kazimanufacturing.com</p>
+                    <p>Kathmandu, Nepal</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Kazi Manufacturing. All rights reserved.</p>
+                <p>&copy; 2026 KAZI Manufacturing. All rights reserved.</p>
             </div>
         </div>
     </footer>
