@@ -1,204 +1,145 @@
-// KAZI Manufacturing - Main JavaScript
+// Pricing Calculator
+const quantitySlider = document.getElementById('quantity');
+const quantityValue = document.getElementById('quantity-value');
+const pricePerUnit = document.getElementById('price-per-unit');
+const priceTotal = document.getElementById('price-total');
 
-// i18n Translations
-const i18n = {
-  en: {
-    nav_services: "Services",
-    nav_suppliers: "Suppliers",
-    nav_about: "About",
-    nav_join: "Are you a manufacturer? Join us",
-    nav_quote: "Get Quote",
-    hero_eyebrow: "Kathmandu, Nepal · Full-Service Manufacturing",
-    hero_desc: "Full-service garment manufacturing from the Himalayas. Hoodies · Embroidery · DTG · Screen Print · Knitwear · Private Label. 0% UK import duty. Ethical wages. MOQ from 100 units.",
-    hero_cta: "Request a Quote",
-    stat_moq: "MOQ per style",
-    stat_duty: "UK import duty",
-    stat_weight: "minimum weight",
-    stat_lead: "sample lead time",
-    services_label: "/ What We Make",
-    services_title: "Our Services.",
-    why_label: "/ Why Nepal",
-    why_title: "The structural advantage.",
-    process_label: "/ How It Works",
-    process_title: "From brief to delivery."
-  },
-  ne: {
-    nav_services: "सेवाहरू",
-    nav_suppliers: "आपूर्तिकर्ताहरू",
-    nav_about: "हाम्रोबारे",
-    nav_join: "के तपाईं उत्पादक हुनुहुन्छ? सामेल हुनुहोस्",
-    nav_quote: "कोट प्राप्त गर्नुहोस्",
-    hero_eyebrow: "काठमाडौं, नेपाल · पूर्ण-सेवा विनिर्माण",
-    hero_desc: "हिमालयबाट पूर्ण-सेवा गार्मेन्ट विनिर्माण। हुडीहरू · कढाइ · डीटीजी · स्क्रिन प्रिन्ट · निटवियर · निजी लेबल। ०% यूके आयात कर। नैतिक तलब। १०० युनिटबाट MOQ।",
-    hero_cta: "कोट अनुरोध गर्नुहोस्",
-    stat_moq: "प्रति शैली MOQ",
-    stat_duty: "यूके आयात कर",
-    stat_weight: "न्यूनतम तौल",
-    stat_lead: "नमूना लिड समय",
-    services_label: "/ हामी के बनाउछौं",
-    services_title: "हाम्रा सेवाहरू।",
-    why_label: "/ किन नेपाल",
-    why_title: "संरचनात्मक लाभ।",
-    process_label: "/ यसरी काम गर्छ",
-    process_title: "ब्रिफबाट डेलिभरीसम्म।"
-  },
-  hi: {
-    nav_services: "सेवाएं",
-    nav_suppliers: "आपूर्तिकर्ता",
-    nav_about: "हमारे बारे में",
-    nav_join: "क्या आप एक निर्माता हैं? हमसे जुड़ें",
-    nav_quote: "कोट प्राप्त करें",
-    hero_eyebrow: "काठमांडू, नेपाल · पूर्ण-सेवा विनिर्माण",
-    hero_desc: "हिमालय से पूर्ण-सेवा गार्मेंट विनिर्माण। हुडीज · एम्ब्रॉयडरी · डीटीजी · स्क्रीन प्रिंट · निटवियर · प्राइवेट लेबल। ०% यूके आयात शुल्क। नैतिक मजदूरी। १०० यूनिट से MOQ।",
-    hero_cta: "कोट का अनुरोध करें",
-    stat_moq: "प्रति शैली MOQ",
-    stat_duty: "यूके आयात शुल्क",
-    stat_weight: "न्यूनतम वजन",
-    stat_lead: "नमूना लीड समय",
-    services_label: "/ हम क्या बनाते हैं",
-    services_title: "हमारी सेवाएं।",
-    why_label: "/ क्यों नेपाल",
-    why_title: "संरचनात्मक लाभ।",
-    process_label: "/ यह कैसे काम करता है",
-    process_title: "ब्रीफ से डिलीवरी तक।"
-  }
-};
+// Pricing tiers
+const tiers = [
+    { max: 50, price: 12 },
+    { max: 100, price: 9 },
+    { max: 250, price: 7 },
+    { max: 500, price: 5.50 },
+    { max: 1000, price: 4.50 },
+    { max: 2500, price: 3.50 },
+    { max: 5000, price: 3.50 }
+];
 
-// Get browser language
-function getBrowserLang() {
-  const lang = navigator.language || navigator.userLanguage;
-  if (lang.startsWith('ne')) return 'ne';
-  if (lang.startsWith('hi')) return 'hi';
-  return 'en';
-}
-
-// Set language
-function setLang(lang) {
-  if (!i18n[lang]) lang = 'en';
-  localStorage.setItem('kazi_lang', lang);
-  document.documentElement.lang = lang;
-  
-  // Update select
-  const select = document.getElementById('langSelect');
-  if (select) select.value = lang;
-  
-  // Translate all elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (i18n[lang][key]) {
-      el.innerHTML = i18n[lang][key];
+function getPrice(quantity) {
+    for (let i = 0; i < tiers.length; i++) {
+        if (quantity <= tiers[i].max) {
+            // Find previous tier for interpolation
+            const prevTier = i > 0 ? tiers[i - 1] : tiers[i];
+            const currTier = tiers[i];
+            
+            if (quantity === currTier.max || i === 0) {
+                return currTier.price;
+            }
+            
+            // Linear interpolation between tiers
+            const range = currTier.max - prevTier.max;
+            const position = quantity - prevTier.max;
+            const ratio = position / range;
+            const priceDiff = prevTier.price - currTier.price;
+            
+            return prevTier.price - (priceDiff * ratio);
+        }
     }
-  });
+    return tiers[tiers.length - 1].price;
 }
 
-// Initialize language on page load
-document.addEventListener('DOMContentLoaded', function() {
-  const savedLang = localStorage.getItem('kazi_lang') || getBrowserLang();
-  setLang(savedLang);
-});
-
-// Click tracking functionality
-function trackClick(service, type) {
-  // Track in localStorage
-  const data = JSON.parse(localStorage.getItem('kazi_clicks') || '{}');
-  const timestamps = JSON.parse(localStorage.getItem('kazi_clicks_ts') || '{}');
-  
-  const key = type ? `${service}_${type}` : service;
-  data[key] = (data[key] || 0) + 1;
-  timestamps[key] = Date.now();
-  
-  localStorage.setItem('kazi_clicks', JSON.stringify(data));
-  localStorage.setItem('kazi_clicks_ts', JSON.stringify(timestamps));
-  
-  // Send beacon if online (fire and forget)
-  if (navigator.sendBeacon) {
-    const beaconData = new FormData();
-    beaconData.append('service', service);
-    beaconData.append('type', type);
-    beaconData.append('ts', Date.now());
-    beaconData.append('url', window.location.href);
-    beaconData.append('ref', document.referrer);
+function updateCalculator() {
+    const quantity = parseInt(quantitySlider.value);
+    const price = getPrice(quantity);
+    const total = Math.round(quantity * price);
     
-    // Send to Formspree for tracking (will create email notifications)
-    navigator.sendBeacon('https://formspree.io/f/xpzgkqnd', beaconData);
-  }
+    quantityValue.textContent = quantity;
+    pricePerUnit.textContent = price.toFixed(2);
+    priceTotal.textContent = total.toLocaleString();
 }
 
-// Form handling with Formspree
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('contactForm');
-  const note = document.getElementById('formNote');
-  
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-      
-      // Track form submission
-      trackClick(data.service || 'unknown', 'form_submit');
-      
-      // Submit to Formspree
-      fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
+if (quantitySlider) {
+    quantitySlider.addEventListener('input', updateCalculator);
+    updateCalculator();
+}
+
+// FAQ Accordion
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all other items
+        faqItems.forEach(otherItem => {
+            otherItem.classList.remove('active');
+        });
+        
+        // Toggle current item
+        if (!isActive) {
+            item.classList.add('active');
         }
-      })
-      .then(response => {
-        if (response.ok) {
-          note.textContent = "Thanks! We'll be in touch within 2 working days.";
-          note.className = 'form-note success';
-          form.reset();
-        } else {
-          throw new Error('Form submission failed');
-        }
-      })
-      .catch(error => {
-        note.textContent = "Something went wrong. Please email us directly at hello@kazimanufacturing.com";
-        note.style.color = '#c1a04a';
-      });
     });
-  }
-  
-  // Smooth scroll for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const href = a.getAttribute('href');
-      if (href.startsWith('#')) {
-        const target = document.querySelector(href);
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    });
-  });
-  
-  // Check for service in URL query params and pre-select
-  const urlParams = new URLSearchParams(window.location.search);
-  const serviceParam = urlParams.get('service');
-  if (serviceParam) {
-    const serviceSelect = document.querySelector('select[name="service"]');
-    if (serviceSelect) {
-      serviceSelect.value = serviceParam;
-    }
-  }
 });
 
-// Pre-fill service from URL hash
-document.addEventListener('DOMContentLoaded', function() {
-  const hash = window.location.hash;
-  if (hash && hash.includes('?')) {
-    const params = new URLSearchParams(hash.split('?')[1]);
-    const service = params.get('service');
-    if (service) {
-      const select = document.querySelector('select[name="service"]');
-      if (select) {
-        select.value = service;
-      }
-    }
-  }
+// Mobile Navigation
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        
+        // Animate hamburger
+        const spans = navToggle.querySelectorAll('span');
+        if (navMenu.classList.contains('active')) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+    
+    // Close menu when clicking a link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            const spans = navToggle.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        });
+    });
+}
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
 });
+
+// Form handling
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        // Let Formspree handle the submission
+        // Just add a small visual feedback
+        const submitBtn = contactForm.querySelector('.form-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        // Re-enable after a short delay (form will navigate away)
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }, 3000);
+    });
+}
