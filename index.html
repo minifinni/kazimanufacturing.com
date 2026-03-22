@@ -124,10 +124,11 @@
                         <img src="images/factory-3.jpg" alt="Private Label Manufacturing">
                     </div>
                     <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                            <path d="M2 17l10 5 10-5"/>
-                            <path d="M2 12l10 5 10-5"/>
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 16C12 12 16 8 24 8C32 8 36 12 36 16V32C36 36 32 40 24 40C16 40 12 36 12 32V16Z"/>
+                            <circle cx="24" cy="24" r="4"/>
+                            <path d="M36 16L42 14V30L36 32"/>
+                            <path d="M12 16L6 14V30L12 32"/>
                         </svg>
                     </div>
                     <h3>Private Label & Custom</h3>
@@ -302,6 +303,7 @@
             <h2 class="section-title">Get a Quote</h2>
             <p class="section-subtitle">Tell us about your project and we'll get back to you within 24 hours.</p>
             
+<<<<<<< HEAD
             <form class="contact-form" action="https://formspree.io/f/xkgwnpaj" method="POST">
                 <div class="form-grid">
                     <div class="form-group">
@@ -313,10 +315,60 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" name="company">
+=======
+            <form class="contact-form" action="https://formspree.io/f/xpwzgkqp" method="POST">
+                <!-- Contact Info -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Contact Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
                     </div>
                     <div class="form-group">
+>>>>>>> 69e57b966de10aef5d8f089bd0e86afca1ab3cdc
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" placeholder="Your brand or company name">
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Product Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-type">Product Type *</label>
+                            <select id="product-type" name="product-type" required>
+                                <option value="">Select...</option>
+                                <option value="t-shirts">T-Shirts</option>
+                                <option value="hoodies">Hoodies</option>
+                                <option value="embroidery">Embroidery</option>
+                                <option value="screen-print">Screen Print</option>
+                                <option value="dtg">DTG</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="decoration-type">Print/Decoration Type</label>
+                            <select id="decoration-type" name="decoration-type">
+                                <option value="">Select...</option>
+                                <option value="none">None (Blank Garments)</option>
+                                <option value="screen-print-1">Screen Print (1 color)</option>
+                                <option value="screen-print-multi">Screen Print (multi-color)</option>
+                                <option value="dtg">DTG (Direct to Garment)</option>
+                                <option value="embroidery">Embroidery</option>
+                                <option value="heat-transfer">Heat Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+<<<<<<< HEAD
                         <label for="product-type">Product Type *</label>
                         <select id="product-type" name="product-type" required>
                             <option value="">Select a product</option>
@@ -402,6 +454,76 @@
                 </div>
                 
                 <button type="submit" class="form-submit">Send Quote Request</button>
+=======
+                        <label>Print Locations</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="print-locations" value="front">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Front</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="print-locations" value="back">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Back</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="print-locations" value="left-sleeve">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Left Sleeve</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="print-locations" value="right-sleeve">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-text">Right Sleeve</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="num-colors">Number of Colors</label>
+                            <select id="num-colors" name="num-colors">
+                                <option value="">Select...</option>
+                                <option value="1">1 color</option>
+                                <option value="2">2 colors</option>
+                                <option value="3-4">3-4 colors</option>
+                                <option value="5+">5+ colors</option>
+                                <option value="full-color">Full color/Gradient</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-quantity">Quantity</label>
+                            <input type="number" id="form-quantity" name="quantity" min="50" placeholder="e.g., 200">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Timeline</h3>
+                    <div class="form-group">
+                        <label for="timeline">When do you need this delivered?</label>
+                        <select id="timeline" name="timeline">
+                            <option value="">Select...</option>
+                            <option value="rush">Rush (2-3 weeks)</option>
+                            <option value="standard">Standard (4-6 weeks)</option>
+                            <option value="flexible">Flexible (6+ weeks)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Additional Details -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Additional Details</h3>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, design requirements, specific garment styles, or any other details..." required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="form-submit">Get Quote</button>
+>>>>>>> 69e57b966de10aef5d8f089bd0e86afca1ab3cdc
             </form>
         </div>
     </section>
@@ -427,5 +549,8 @@
     </footer>
 
     <script src="script.js"></script>
+</body>
+</html>
+c="script.js"></script>
 </body>
 </html>
