@@ -79,6 +79,12 @@ em { font-style: normal; color: var(--accent); }
 }
 .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
+.hero-ctas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
 /* TICKER */
 .ticker { overflow: hidden; border-bottom: 1px solid var(--border); background: var(--surface); padding: 0.65rem 0; }
 .ticker-inner {
