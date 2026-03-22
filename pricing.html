@@ -39,7 +39,7 @@
     <div class="pricing-hero-content">
       <p class="pricing-eyebrow">Price Calculation</p>
       <h1 class="pricing-title">Get a quote <em>instantly</em></h1>
-      <p class="pricing-subtitle">Forget the days of back and forth email threads before receiving a quote. Use our price calculator and get an estimate for your project from 50-5,000 pieces instantly.</p>
+      <p class="pricing-subtitle">Configure your order below and see pricing update in real-time. Select your product, decoration options, and quantity.</p>
     </div>
   </section>
 
@@ -50,74 +50,117 @@
       <!-- Left: Controls -->
       <div class="calculator-controls">
         
-        <!-- Product Selector -->
+        <!-- Product Selection Cards -->
         <div class="control-group">
-          <label class="control-label">Choose product</label>
-          <div class="product-selector">
-            <select id="productSelect" class="product-select">
-              <option value="tshirt">Premium T-Shirt (180-220gsm)</option>
-              <option value="hoodie">Heavyweight Hoodie (400-500gsm)</option>
-              <option value="sweatshirt">Crewneck Sweatshirt (350-400gsm)</option>
-              <option value="polo">Polo Shirt (200-240gsm)</option>
-              <option value="tank">Tank Top / Vest (160-180gsm)</option>
-            </select>
-            <div class="product-preview">
-              <img id="productImage" src="https://placehold.co/400x400/1a1a1a/c17a4a?text=T-Shirt" alt="Product preview" />
+          <label class="control-label">1. Choose Product Type</label>
+          <div class="product-cards">
+            <div class="product-card" data-product="tshirt">
+              <div class="product-icon">👕</div>
+              <div class="product-name">T-Shirts</div>
+              <div class="product-price">from £8/unit</div>
+            </div>
+            <div class="product-card" data-product="hoodie">
+              <div class="product-icon">🧥</div>
+              <div class="product-name">Hoodies</div>
+              <div class="product-price">from £12/unit</div>
+            </div>
+            <div class="product-card" data-product="embroidery-only">
+              <div class="product-icon">🪡</div>
+              <div class="product-name">Embroidery</div>
+              <div class="product-price">from £15/unit</div>
+            </div>
+            <div class="product-card" data-product="screen-only">
+              <div class="product-icon">🎨</div>
+              <div class="product-name">Screen Print</div>
+              <div class="product-price">from £6/unit</div>
+            </div>
+            <div class="product-card" data-product="dtg-only">
+              <div class="product-icon">🖨️</div>
+              <div class="product-name">DTG</div>
+              <div class="product-price">from £10/unit</div>
             </div>
           </div>
         </div>
 
-        <!-- Customizations -->
-        <div class="control-group">
-          <label class="control-label">Add Customizations</label>
-          <div class="customizations">
-            <div class="customization-item">
-              <label class="custom-label">Print Method</label>
-              <select id="printMethod" class="custom-select">
-                <option value="none">No printing</option>
-                <option value="screen">Screen Print (1-6 colours)</option>
-                <option value="dtg">DTG (Direct-to-Garment)</option>
-                <option value="embroidery">Embroidery</option>
-              </select>
+        <!-- Decoration Options (shown after product selected) -->
+        <div class="control-group decoration-group" id="decorationGroup" style="display: none;">
+          <label class="control-label">2. Decoration Options</label>
+          
+          <!-- Print Type -->
+          <div class="decoration-section">
+            <label class="decoration-label">Print Type</label>
+            <div class="option-buttons print-type-options">
+              <button class="option-btn" data-print="none" data-price="0">None</button>
+              <button class="option-btn" data-print="dtg" data-price="2">DTG <span class="option-price">+£2</span></button>
+              <button class="option-btn" data-print="screen-1" data-price="1">Screen Print 1-color <span class="option-price">+£1</span></button>
+              <button class="option-btn" data-print="screen-multi" data-price="2.5">Screen Print Multi <span class="option-price">+£2.50</span></button>
+              <button class="option-btn" data-print="embroidery" data-price="4">Embroidery <span class="option-price">+£4</span></button>
             </div>
-            <div class="customization-item">
-              <label class="custom-label">Custom Labels</label>
-              <select id="customLabels" class="custom-select">
-                <option value="none">No custom labels</option>
-                <option value="woven">Woven Labels</option>
-                <option value="printed">Printed Care Labels</option>
-                <option value="both">Woven + Care Labels</option>
-              </select>
+          </div>
+
+          <!-- Print Locations -->
+          <div class="decoration-section">
+            <label class="decoration-label">Print Locations <span class="label-hint">(select all that apply)</span></label>
+            <div class="checkbox-group location-options">
+              <label class="checkbox-label">
+                <input type="checkbox" data-location="front" data-price="1">
+                <span class="checkbox-text">Front <span class="option-price">+£1</span></span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" data-location="back" data-price="1">
+                <span class="checkbox-text">Back <span class="option-price">+£1</span></span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" data-location="left-sleeve" data-price="0.5">
+                <span class="checkbox-text">Left Sleeve <span class="option-price">+£0.50</span></span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" data-location="right-sleeve" data-price="0.5">
+                <span class="checkbox-text">Right Sleeve <span class="option-price">+£0.50</span></span>
+              </label>
             </div>
-            <div class="customization-item">
-              <label class="custom-label">Packaging</label>
-              <select id="packaging" class="custom-select">
-                <option value="standard">Standard Polybag</option>
-                <option value="branded">Branded Polybag</option>
-                <option value="box">Custom Box (per 10 units)</option>
-              </select>
+          </div>
+
+          <!-- Garment Color -->
+          <div class="decoration-section">
+            <label class="decoration-label">Garment Colour</label>
+            <div class="option-buttons color-options">
+              <button class="option-btn color-btn" data-color="white" data-price="0">
+                <span class="color-swatch white"></span>
+                White <span class="option-price">base</span>
+              </button>
+              <button class="option-btn color-btn" data-color="black" data-price="0.5">
+                <span class="color-swatch black"></span>
+                Black <span class="option-price">+£0.50</span>
+              </button>
+              <button class="option-btn color-btn" data-color="colors" data-price="0.75">
+                <span class="color-swatch colors"></span>
+                Colours <span class="option-price">+£0.75</span>
+              </button>
             </div>
           </div>
         </div>
 
         <!-- Quantity Slider -->
         <div class="control-group">
-          <label class="control-label">Order Quantity</label>
+          <label class="control-label">3. Order Quantity</label>
           <div class="quantity-section">
             <div class="slider-container">
-              <input type="range" id="quantitySlider" min="50" max="2500" value="50" step="50" class="quantity-slider" />
+              <input type="range" id="quantitySlider" min="50" max="5000" value="100" step="50" class="quantity-slider" />
               <div class="slider-marks">
                 <span>50</span>
                 <span>500</span>
                 <span>1000</span>
                 <span>2500</span>
+                <span>5000</span>
               </div>
             </div>
             <div class="quantity-input-wrapper">
-              <input type="number" id="quantityInput" value="50" min="50" max="10000" class="quantity-input" />
+              <input type="number" id="quantityInput" value="100" min="50" max="10000" class="quantity-input" />
               <span class="quantity-unit">units</span>
             </div>
           </div>
+          <div class="quantity-discount-note" id="quantityDiscountNote"></div>
         </div>
 
       </div>
@@ -126,6 +169,10 @@
       <div class="calculator-display">
         <div class="price-card">
           
+          <div class="price-header">
+            <div class="selected-product" id="selectedProductDisplay">Select a product</div>
+          </div>
+
           <div class="price-breakdown">
             <div class="price-row lead-time-row">
               <span class="price-label">Lead time</span>
@@ -133,28 +180,46 @@
             </div>
             <div class="price-row">
               <span class="price-label">Quantity</span>
-              <span class="price-value" id="displayQuantity">50</span>
+              <span class="price-value" id="displayQuantity">100</span>
+            </div>
+            <div class="price-divider thin"></div>
+            <div class="price-row">
+              <span class="price-label">Base garment</span>
+              <span class="price-value" id="basePrice">£0.00</span>
             </div>
             <div class="price-row">
-              <span class="price-label">Unit cost</span>
-              <span class="price-value unit-cost" id="unitCost">£12.00</span>
+              <span class="price-label">Colour adjustment</span>
+              <span class="price-value" id="colorCost">£0.00</span>
             </div>
             <div class="price-row">
-              <span class="price-label">Customizations</span>
-              <span class="price-value" id="customCost">£0.00</span>
+              <span class="price-label">Print/Decoration</span>
+              <span class="price-value" id="printCost">£0.00</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Locations</span>
+              <span class="price-value" id="locationCost">£0.00</span>
+            </div>
+            <div class="price-row discount-row" id="discountRow" style="display: none;">
+              <span class="price-label">Volume discount</span>
+              <span class="price-value discount" id="discountAmount">-£0.00</span>
             </div>
           </div>
 
           <div class="price-divider"></div>
 
+          <div class="price-per-unit">
+            <span class="ppu-label">Price per unit</span>
+            <span class="ppu-value" id="unitCost">£0.00</span>
+          </div>
+
           <div class="price-total">
-            <span class="total-label">Subtotal</span>
-            <span class="total-value" id="subtotal">£600.00</span>
+            <span class="total-label">Total</span>
+            <span class="total-value" id="totalPrice">£0.00</span>
           </div>
 
           <div class="price-notes">
             <p class="price-note">Prices are indicative. Final quote depends on technical specifications and artwork complexity.</p>
-            <p class="price-note shipping-note">Shipping and duties costs are not included in the calculation. <a href="#shipping-info" class="more-info">more info</a></p>
+            <p class="price-note shipping-note">Shipping and duties not included. <a href="#shipping-info" class="more-info">more info</a></p>
           </div>
 
           <a href="#contact" class="btn-email-quote" onclick="populateQuoteForm()">Get Detailed Quote</a>
@@ -173,40 +238,28 @@
       <div class="tiers-grid">
         <div class="tier-card" data-tier="50">
           <div class="tier-quantity">50-99</div>
-          <div class="tier-price">£12.00</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £600 total</div>
+          <div class="tier-discount">Base price</div>
         </div>
         <div class="tier-card" data-tier="100">
           <div class="tier-quantity">100-249</div>
-          <div class="tier-price">£9.00</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £900 total</div>
+          <div class="tier-discount">10% off</div>
         </div>
         <div class="tier-card" data-tier="250">
           <div class="tier-quantity">250-499</div>
-          <div class="tier-price">£7.00</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £1,750 total</div>
+          <div class="tier-discount">15% off</div>
         </div>
         <div class="tier-card" data-tier="500">
           <div class="tier-quantity">500-999</div>
-          <div class="tier-price">£5.50</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £2,750 total</div>
+          <div class="tier-discount">20% off</div>
         </div>
         <div class="tier-card" data-tier="1000">
           <div class="tier-quantity">1000-2499</div>
-          <div class="tier-price">£4.50</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £4,500 total</div>
+          <div class="tier-discount">25% off</div>
         </div>
         <div class="tier-card featured" data-tier="2500">
           <div class="tier-badge">Best Value</div>
           <div class="tier-quantity">2500+</div>
-          <div class="tier-price">£3.50</div>
-          <div class="tier-unit">per unit</div>
-          <div class="tier-total">From £8,750 total</div>
+          <div class="tier-discount">30% off</div>
         </div>
       </div>
     </div>
@@ -293,24 +346,27 @@
         </div>
         <select name="product" id="formProduct" class="full" required>
           <option value="">Select Product</option>
-          <option value="tshirt">Premium T-Shirt</option>
-          <option value="hoodie">Heavyweight Hoodie</option>
-          <option value="sweatshirt">Crewneck Sweatshirt</option>
-          <option value="polo">Polo Shirt</option>
-          <option value="tank">Tank Top / Vest</option>
+          <option value="tshirt">T-Shirts</option>
+          <option value="hoodie">Hoodies</option>
+          <option value="embroidery-only">Embroidery</option>
+          <option value="screen-only">Screen Print</option>
+          <option value="dtg-only">DTG</option>
         </select>
         <div class="form-row-2">
           <input type="number" name="quantity" id="formQuantity" placeholder="Quantity" min="50" />
-          <select name="print_method" class="full">
+          <select name="print_method" id="formPrintMethod" class="full">
             <option value="">Print Method (optional)</option>
-            <option value="screen">Screen Print</option>
-            <option value="dtg">DTG</option>
-            <option value="embroidery">Embroidery</option>
             <option value="none">None</option>
+            <option value="dtg">DTG</option>
+            <option value="screen-1">Screen Print 1-color</option>
+            <option value="screen-multi">Screen Print Multi-color</option>
+            <option value="embroidery">Embroidery</option>
           </select>
         </div>
         <textarea name="message" placeholder="Tell us about your project, timeline, and any special requirements..." rows="4"></textarea>
         <input type="hidden" name="calculated_price" id="formCalculatedPrice" />
+        <input type="hidden" name="color" id="formColor" />
+        <input type="hidden" name="locations" id="formLocations" />
         <input type="hidden" name="source" value="pricing_calculator" />
         <button type="submit">Send Quote Request</button>
         <p class="form-note" id="formNote"></p>
