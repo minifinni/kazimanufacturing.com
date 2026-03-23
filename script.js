@@ -128,18 +128,99 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Form handling
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        // Let Formspree handle the submission
-        // Just add a small visual feedback
+    contactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
         const submitBtn = contactForm.querySelector('.form-submit');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        // Re-enable after a short delay (form will navigate away)
-        setTimeout(() => {
+        // Collect print locations
+        const printLocations = [];
+        contactForm.querySelectorAll('input[name="print-locations"]:checked').forEach(cb => {
+            printLocations.push(cb.value);
+        });
+        
+        // Build form data
+        const formData = {
+            name: contactForm.querySelector('#name')?.value,
+            email: contactForm.querySelector('#email')?.value,
+            company: contactForm.querySelector('#company')?.value,
+            productType: contactForm.querySelector('#product-type')?.value,
+            decorationType: contactForm.querySelector('#decoration-type')?.value,
+            printLocations: printLocations,
+            numColors: contactForm.querySelector('#num-colors')?.value,
+            quantity: contactForm.querySelector('#form-quantity')?.value,
+            timeline: contactForm.querySelector('#timeline')?.value,
+            message: contactForm.querySelector('#message')?.value
+        };
+        
+        try {
+            const response = await fetch('/api/quote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                // Success - show message
+                showFormMessage('Thank you! Your quote request has been submitted. Check your email for confirmation.', 'success');
+                contactForm.reset();
+            } else {
+                // Error from server
+                showFormMessage(result.error || 'Something went wrong. Please try again.', 'error');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            showFormMessage('Unable to submit. Please try again or email us directly at hello@kazimanufacturing.com', 'error');
+        } finally {
             submitBtn.textContent = originalText;
             submitBtn.disabled = false;
-        }, 3000);
+        }
     });
+}
+
+// Show form message
+function showFormMessage(message, type) {
+    // Remove any existing messages
+    const existingMsg = document.querySelector('.form-message');
+    if (existingMsg) existingMsg.remove();
+    
+    // Create message element
+    const msgDiv = document.createElement('div');
+    msgDiv.className = `form-message form-message-${type}`;
+    msgDiv.textContent = message;
+    
+    // Style based on type
+    msgDiv.style.padding = '1rem';
+    msgDiv.style.marginBottom = '1rem';
+    msgDiv.style.borderRadius = '0.5rem';
+    msgDiv.style.fontWeight = '500';
+    
+    if (type === 'success') {
+        msgDiv.style.background = '#dcfce7';
+        msgDiv.style.color = '#166534';
+        msgDiv.style.border = '1px solid #86efac';
+    } else {
+        msgDiv.style.background = '#fee2e2';
+        msgDiv.style.color = '#991b1b';
+        msgDiv.style.border = '1px solid #fecaca';
+    }
+    
+    // Insert before form
+    const form = document.getElementById('quoteForm');
+    form.parentNode.insertBefore(msgDiv, form);
+    
+    // Scroll to message
+    msgDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+        msgDiv.remove();
+    }, 10000);
 }

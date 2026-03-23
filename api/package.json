@@ -1,0 +1,16 @@
+{
+  "name": "kazi-pricing-api",
+  "version": "1.0.0",
+  "description": "Quote form API for Kazi Manufacturing",
+  "main": "api/quote.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "resend": "^3.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}
